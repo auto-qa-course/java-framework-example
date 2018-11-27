@@ -15,8 +15,6 @@ public class BaseTest {
     }
 
     public BaseTest() {
-        System.out.println("Let's write some test cases!");
-
         RestAssured.baseURI = "http://httpbin.org/";
 
         get("/get").then().assertThat().statusCode(200);
@@ -26,7 +24,6 @@ public class BaseTest {
         then().
                 assertThat().statusCode(200).
                 assertThat().body("url", equalTo("http://httpbin.org/get"));
-
     }
 
 }
