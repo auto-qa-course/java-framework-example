@@ -9,8 +9,8 @@ import java.util.Properties;
 
 class ConfigReader {
 
-    Properties configuration;
-    String configFilePath;
+    private Properties configuration;
+    private String configFilePath;
 
     ConfigReader(String configFilePath) {
         Properties configuration = new Properties();
@@ -28,6 +28,12 @@ class ConfigReader {
             exception.printStackTrace();
             throw new RuntimeException(String.format("File %s not found.", configFilePath));
         }
+    }
+
+    String getProperty(String propertyName){
+        String propertyValue = configuration.getProperty(propertyName);
+        if(propertyValue!= null) return propertyValue;
+        else throw new RuntimeException(String.format("%s not specified in the %s file.", propertyName, configFilePath));
     }
 }
 
