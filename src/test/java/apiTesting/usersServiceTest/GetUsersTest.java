@@ -1,21 +1,16 @@
-package apitesting;
+package apiTesting.usersServiceTest;
 
 import org.testng.annotations.Test;
-import org.testng.annotations.BeforeClass;
-import io.restassured.RestAssured;
-import io.qameta.allure.*;
 
-import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.*;
 import java.util.ArrayList;
 
-@Story("Test /users service endpoints")
-public class UsersServiceTest {
+import static io.restassured.RestAssured.when;
+import static org.hamcrest.Matchers.equalTo;
 
-    @BeforeClass
-    public void SetupBaseURL() {
-        RestAssured.baseURI = "https://reqres.in/api";
-    }
+
+public class GetUsersTest extends UsersBaseTest {
+
+    public GetUsersTest() { super(); }
 
     @Test(description = "Test root GET users endpoint.")
     public void TestUsersGet() {
@@ -82,6 +77,5 @@ public class UsersServiceTest {
                 assertThat().statusCode(200).
                 assertThat().body("total_pages", equalTo(pages_number)).
                 assertThat().body("data", equalTo(data_content));
-
     }
 }

@@ -33,7 +33,9 @@ class ConfigReader {
     String getProperty(String propertyName){
         String propertyValue = configuration.getProperty(propertyName);
         if(propertyValue!= null) return propertyValue;
-        else throw new RuntimeException(String.format("%s not specified in the %s file.", propertyName, configFilePath));
+        else {
+            throw new RuntimeException(String.format("%s not specified in the %s file.", propertyName, configFilePath));
+        }
     }
 }
 
