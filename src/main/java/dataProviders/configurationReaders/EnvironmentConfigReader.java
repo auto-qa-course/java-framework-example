@@ -4,7 +4,7 @@ public class EnvironmentConfigReader extends ConfigReader {
 
     public EnvironmentConfigReader(String configFilePath){ super(configFilePath); }
 
-    public String getMainServiceURL(){ return this.getProperty("baseURL"); }
+    public String getMainServiceURL(){ return this.getProperty("baseUrl"); }
 
     public String getUserName(){ return this.getProperty("testUserName"); }
 

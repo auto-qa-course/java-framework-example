@@ -1,4 +1,4 @@
-package apiTesting.usersServiceTest;
+package api.usersServiceTest;
 
 import org.testng.annotations.Test;
 
@@ -15,7 +15,7 @@ public class GetUsersTest extends UsersBaseTest {
     @Test(description = "Test root GET users endpoint.")
     public void TestUsersGet() {
         when().
-                get("/users").
+                get(usersAPI.path).
         then().
                 assertThat().statusCode(200);
     }

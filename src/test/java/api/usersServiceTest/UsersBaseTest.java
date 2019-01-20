@@ -1,16 +1,21 @@
-package apiTesting.usersServiceTest;
+package api.usersServiceTest;
 
-import apiTesting.BaseTest;
+import api.BaseTest;
+import api.UsersAPI;
 import org.testng.annotations.BeforeClass;
 import io.restassured.RestAssured;
 
 
 public class UsersBaseTest extends BaseTest {
 
+    UsersAPI usersAPI;
+
     @BeforeClass
     public void SetupBaseURL() {
-        RestAssured.baseURI = "https://reqres.in/api";
+        usersAPI = new UsersAPI();
+        RestAssured.baseURI = envConfig.getMainServiceURL();
     }
 
     UsersBaseTest() { super(); }
+
 }
