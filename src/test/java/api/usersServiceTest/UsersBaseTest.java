@@ -12,7 +12,7 @@ public class UsersBaseTest extends BaseTest {
 
     @BeforeClass
     public void SetupBaseURL() {
-        usersAPI = new UsersAPI();
+        usersAPI = new UsersAPI(this.commonConfig);
         RestAssured.baseURI = envConfig.getMainServiceURL();
     }
 

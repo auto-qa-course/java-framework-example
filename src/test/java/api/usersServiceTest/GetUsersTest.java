@@ -22,20 +22,20 @@ public class GetUsersTest extends UsersBaseTest {
 
     @Test(description = "Test GET Users pagination - page number parameter.")
     public void TestUsersGetPaginationByPageNumber() {
-        int page_number = 1;
+        int pageNumber = 1;
         when().
-                get(String.format("/users?page=%s", page_number)).
+                get(usersAPI.getUsersByPagePath(pageNumber)).
         then().
                 assertThat().statusCode(200).
-                assertThat().body("page", equalTo(page_number));
+                assertThat().body("page", equalTo(pageNumber));
     }
 
     @Test(description = "Test GET Users pagination - page size parameter.")
     public void TestUsersGetPaginationPerPageSize() {
-        int page_size = 10;
+        int pageSize = 10;
         ArrayList<String> response =
                 when().
-                get(String.format("/users?per_page=%s", page_size)).
+                get(usersAPI.getUsersBySizePath(pageSize)).
         then().
                 assertThat().statusCode(200).
         extract().
@@ -45,11 +45,11 @@ public class GetUsersTest extends UsersBaseTest {
 
     @Test(description = "Test GET Users pagination - page number & size parameter.")
     public void TestUsersGetPaginationPerPageSizeAndPageNumber() {
-        int page_number = 2;
-        int page_size = 10;
+        int pageNumber = 2;
+        int pageSize = 10;
         ArrayList<String> response =
                 when().
-                        get(String.format("/users?page=%s&per_page=%s", page_number, page_size)).
+                        get(usersAPI.getUsersByPagePerPageSizePath(pageNumber, pageSize)).
                         then().
                         assertThat().statusCode(200).
                         extract().
@@ -59,23 +59,23 @@ public class GetUsersTest extends UsersBaseTest {
 
     @Test(description = "Test GET Users pagination - empty page.")
     public void TestUsersGetPaginationPageEmpty() {
-        int page_number = 1;
-        int pages_number =
+        int pageNumber = 1;
+        int pagesNumber =
         when().
-                get(String.format("/users?page=%s", page_number)).
+                get(usersAPI.getUsersByPagePath(pageNumber)).
                 then().
                 assertThat().statusCode(200).
                 extract().
                 path("total_pages");
-        System.out.println(pages_number);
+        System.out.println(pagesNumber);
 
-        page_number = pages_number + 1;
+        pageNumber = pagesNumber + 1;
         ArrayList data_content = new ArrayList<>();
         when().
-                get(String.format("/users?page=%s", page_number)).
+                get(usersAPI.getUsersByPagePath(pageNumber)).
                 then().
                 assertThat().statusCode(200).
-                assertThat().body("total_pages", equalTo(pages_number)).
+                assertThat().body("total_pages", equalTo(pagesNumber)).
                 assertThat().body("data", equalTo(data_content));
     }
 }
