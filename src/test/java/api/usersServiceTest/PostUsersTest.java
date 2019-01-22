@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 
 import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.equalTo;
 
 
 public class PostUsersTest extends UsersBaseTest {
@@ -13,16 +14,19 @@ public class PostUsersTest extends UsersBaseTest {
 
     @Test(description = "Test root POST users endpoint.")
     public void TestUsersPost() {
-        String user_data = "{\"name\":\"Joe\",\"job\":\"QA\"}";
-        ArrayList<String> response =
+        String userData = "{\"name\":\"Joe\",\"job\":\"QA\"}";
+        String userId =
                 given().
                     header("content-type", "application/json").
-                    body(user_data).
+                    body(userData).
                 when().
                     post(usersAPI.path).
                 then().
                     assertThat().statusCode(201).
+                        assertThat().body("name", equalTo("Joe")).
+                        assertThat().body("job", equalTo("QA")).
                 extract().
-                    path("data");
+                    path("id");
+        System.out.println(userId);
     }
 }
