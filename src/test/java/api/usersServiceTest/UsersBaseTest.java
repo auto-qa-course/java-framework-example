@@ -17,5 +17,4 @@ public class UsersBaseTest extends BaseTest {
     }
 
     UsersBaseTest() { super(); }
-
 }
