@@ -1,9 +1,12 @@
 package api.usersServiceTest;
 
-import io.restassured.response.ValidatableResponse;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+
+import com.jayway.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.equalTo;
+import com.jayway.restassured.response.ValidatableResponse;
 
 
 public class PostUsersTest extends UsersBaseTest {
@@ -12,25 +15,14 @@ public class PostUsersTest extends UsersBaseTest {
 
     @Test(description = "Test root POST users endpoint.")
     public void TestUsersPost() {
-
         String userData = "{\"name\":\"Joe\",\"job\":\"QA\"}";
-
-        ValidatableResponse response = usersAPI.postUser(userData);
-
-        response.assertThat().statusCode(usersAPI.CREATED_CODE);
-    }
-
-    @Test(description = "Test root POST users endpoint & get id.")
-    public void TestUsersPostGetID() {
-
-        String userData = "{\"name\":\"Joe\",\"job\":\"QA\"}";
-
-        ValidatableResponse response = usersAPI.postUser(userData);
-        String userId = response.assertThat().statusCode(usersAPI.CREATED_CODE).
+        ValidatableResponse userResponse = usersAPI.getNewUserId(userData);
+        String userId = userResponse.
+                assertThat().statusCode(201).
                 assertThat().body("name", equalTo("Joe")).
                 assertThat().body("job", equalTo("QA")).
                 extract().
-                path("id");
+                    path("id");
         System.out.println(userId);
     }
 }
