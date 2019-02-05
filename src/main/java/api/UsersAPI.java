@@ -1,12 +1,24 @@
 package api;
 
 import dataProviders.configurationReaders.CommonConfigReader;
+import static io.restassured.RestAssured.*;
+import io.restassured.response.ValidatableResponse;
 
 public class UsersAPI {
     public String path;
 
     public UsersAPI(CommonConfigReader commonConfig) {
+
         this.path = commonConfig.getUsersPath();
+    }
+
+    public ValidatableResponse postUser(String userBody) {
+        return given().
+                header("content-type", "application/json").
+                body(userBody).
+                when().
+                post(this.path).
+                then();
     }
 
     public String getUsersByPagePath(Integer pageNumber) {
@@ -20,4 +32,5 @@ public class UsersAPI {
     public String getUsersBySizePath(Integer pageSize) {
         return String.format("%s?size=%s", this.path, pageSize);
     }
+
 }

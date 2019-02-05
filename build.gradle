@@ -23,7 +23,8 @@ allure {
 }
 
 dependencies {
-    testCompile 'io.rest-assured:rest-assured:3.2.0'
+    compile 'io.rest-assured:rest-assured:3.2.0'
+    
 }
 
 repositories {
