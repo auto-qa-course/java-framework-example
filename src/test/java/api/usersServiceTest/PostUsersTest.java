@@ -17,9 +17,7 @@ public class PostUsersTest extends UsersBaseTest {
 
         ValidatableResponse response = usersAPI.postUser(userData);
 
-        response.assertThat().statusCode(201).
-                assertThat().body("name", equalTo("Joe")).
-                assertThat().body("job", equalTo("QA"));
+        response.assertThat().statusCode(usersAPI.CREATED_CODE);
     }
 
     @Test(description = "Test root POST users endpoint & get id.")
@@ -28,7 +26,7 @@ public class PostUsersTest extends UsersBaseTest {
         String userData = "{\"name\":\"Joe\",\"job\":\"QA\"}";
 
         ValidatableResponse response = usersAPI.postUser(userData);
-        String userId = response.assertThat().statusCode(201).
+        String userId = response.assertThat().statusCode(usersAPI.CREATED_CODE).
                 assertThat().body("name", equalTo("Joe")).
                 assertThat().body("job", equalTo("QA")).
                 extract().
