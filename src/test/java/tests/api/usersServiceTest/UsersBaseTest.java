@@ -1,7 +1,7 @@
-package api.usersServiceTest;
+package tests.api.usersServiceTest;
 
-import api.BaseTest;
-import api.UsersAPI;
+import tests.api.BaseTest;
+import customLibs.api.UsersAPI;
 import org.testng.annotations.BeforeClass;
 import io.restassured.RestAssured;
 
