@@ -22,6 +22,17 @@ public class UsersAPI extends BaseAPI {
                 then();
     }
 
+    public String getUsersByPagePath(Integer pageNumber) {
+        return String.format("%s?page=%s", this.path, pageNumber);
+    }
+
+    public String getUsersByPagePerPageSizePath(Integer pageNumber,Integer pageSize) {
+        return String.format("%s?page=%s&per_page=%s", this.path, pageNumber, pageSize);
+    }
+
+    public String getUsersBySizePath(Integer pageSize) {
+        return String.format("%s?size=%s", this.path, pageSize);
+    }
 }
 
 
