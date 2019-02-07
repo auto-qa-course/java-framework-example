@@ -1,10 +1,9 @@
 package customLibs.api;
 
 import dataProviders.configurationReaders.CommonConfigReader;
-import static io.restassured.RestAssured.*;
 import io.restassured.response.ValidatableResponse;
 import io.qameta.allure.Step;
-
+import java.util.HashMap;
 
 public class UsersAPI extends BaseAPI {
     public String path;
@@ -15,13 +14,11 @@ public class UsersAPI extends BaseAPI {
     }
 
     @Step("POST user")
-    public ValidatableResponse postUser(String userBody) {
-        return given().
-                header("content-type", "application/json").
-                body(userBody).
-                when().
-                post(this.path).
-                then();
+    public ValidatableResponse postUser(HashMap userBody) {
+        HashMap<String, String> requestHeaders = new HashMap<>();
+        requestHeaders.put("content-type", "application/json");
+
+        return this.sendPost(this.path, requestHeaders, userBody);
     }
 
     public String getUsersByPagePath(Integer pageNumber) {
