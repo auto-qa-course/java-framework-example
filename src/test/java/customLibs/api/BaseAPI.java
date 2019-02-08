@@ -4,12 +4,12 @@ import io.restassured.response.ValidatableResponse;
 import java.util.HashMap;
 import static io.restassured.RestAssured.given;
 
-class BaseAPI {
+public class BaseAPI {
     public final Integer CREATED_CODE = 201;
 
-    BaseAPI() {};
+    public BaseAPI() {};
 
-    ValidatableResponse sendPost(String requestPath, HashMap<String, String> requestHeaders, HashMap requestBody) {
+    protected ValidatableResponse sendPost(String requestPath, HashMap<String, String> requestHeaders, HashMap requestBody) {
         final String SEND_MESSAGE = "LOG: Sending POST %s, HEADERS: %s  BODY %s ";
         final String RECEIVED_MESSAGE = "LOG: Received code: %s, BODY: %s";
 

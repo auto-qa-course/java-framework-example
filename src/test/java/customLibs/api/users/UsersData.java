@@ -1,4 +1,4 @@
-package customLibs.api;
+package customLibs.api.users;
 
 import com.github.javafaker.Faker;
 
@@ -16,3 +16,5 @@ public class UsersData {
         return user;
     }
 }
+
+

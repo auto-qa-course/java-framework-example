@@ -1,4 +1,4 @@
-package tests.api.usersServiceTest;
+package tests.api.usersTest;
 
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;

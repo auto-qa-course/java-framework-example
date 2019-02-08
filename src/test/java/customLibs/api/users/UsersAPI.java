@@ -1,5 +1,6 @@
-package customLibs.api;
+package customLibs.api.users;
 
+import customLibs.api.BaseAPI;
 import dataProviders.configurationReaders.CommonConfigReader;
 import io.restassured.response.ValidatableResponse;
 import io.qameta.allure.Step;

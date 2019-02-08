@@ -1,14 +1,15 @@
-package tests.api.usersServiceTest;
+package tests.api.usersTest;
 
-import io.restassured.response.ValidatableResponse;
-import org.testng.annotations.Test;
+import customLibs.api.users.UsersData;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Link;
 import io.qameta.allure.Story;
-import java.util.HashMap;
-import static org.hamcrest.Matchers.equalTo;
+import io.restassured.response.ValidatableResponse;
+import org.testng.annotations.Test;
 
-import customLibs.api.UsersData;
+import java.util.HashMap;
+
+import static org.hamcrest.Matchers.equalTo;
 
 
 @Link(name = "Story 2", value="2", type="backlog_tracker")
@@ -30,14 +31,12 @@ public class PostUsersTest extends UsersBaseTest {
     @Test(description = "Test root POST users endpoint & get id.")
     public void TestUsersPostGetID() {
 
-        HashMap<String, String> userData = new HashMap<>();
-        userData.put("name", "Joe");
-        userData.put("job", "QA");
+        HashMap<String, String> userData = UsersData.generateNewUser();
 
         ValidatableResponse response = usersAPI.postUser(userData);
         String userId = response.assertThat().statusCode(usersAPI.CREATED_CODE).
-                assertThat().body("name", equalTo("Joe")).
-                assertThat().body("job", equalTo("QA")).
+                assertThat().body("name", equalTo(userData.get("name"))).
+                assertThat().body("job", equalTo(userData.get("job"))).
                 extract().
                 path("id");
         System.out.println(userId);
