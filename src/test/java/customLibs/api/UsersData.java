@@ -1,7 +1,8 @@
 package customLibs.api;
 
-import java.util.HashMap;
 import com.github.javafaker.Faker;
+
+import java.util.HashMap;
 
 public class UsersData {
     public UsersData() {};
@@ -11,7 +12,7 @@ public class UsersData {
 
         HashMap<String, String> user = new HashMap<>();
         user.put("name", faker.name().firstName());
-        user.put("job", "QA");
+        user.put("job", faker.job().title());
         return user;
     }
 }
