@@ -1,4 +1,4 @@
-package dataProviders.configurationReaders;
+package customLibs.configurationReaders;
 
 import java.io.FileInputStream;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package dataProviders.configurationReaders;
+package customLibs.configurationReaders;
 
 public class EnvironmentConfigReader extends ConfigReader {
 

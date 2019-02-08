@@ -1,7 +1,7 @@
 package tests.api;
 
-import dataProviders.configurationReaders.EnvironmentConfigReader;
-import dataProviders.configurationReaders.CommonConfigReader;
+import customLibs.configurationReaders.EnvironmentConfigReader;
+import customLibs.configurationReaders.CommonConfigReader;
 
 
 public class BaseTest {

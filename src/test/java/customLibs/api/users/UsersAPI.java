@@ -1,7 +1,7 @@
 package customLibs.api.users;
 
 import customLibs.api.BaseAPI;
-import dataProviders.configurationReaders.CommonConfigReader;
+import customLibs.configurationReaders.CommonConfigReader;
 import io.restassured.response.ValidatableResponse;
 import io.qameta.allure.Step;
 import java.util.HashMap;
