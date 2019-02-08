@@ -2,6 +2,7 @@ package customLibs.api.users;
 
 import customLibs.api.BaseAPI;
 import customLibs.configurationReaders.CommonConfigReader;
+import customLibs.utils.SimpleLogger;
 import io.restassured.response.ValidatableResponse;
 import io.qameta.allure.Step;
 import java.util.HashMap;
@@ -9,8 +10,8 @@ import java.util.HashMap;
 public class UsersAPI extends BaseAPI {
     public String path;
 
-    public UsersAPI(CommonConfigReader commonConfig) {
-        super();
+    public UsersAPI(CommonConfigReader commonConfig, SimpleLogger logger) {
+        super(commonConfig, logger);
         this.path = commonConfig.getUsersPath();
     }
 

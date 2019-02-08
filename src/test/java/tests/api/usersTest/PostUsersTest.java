@@ -34,11 +34,13 @@ public class PostUsersTest extends UsersBaseTest {
         HashMap<String, String> userData = UsersData.generateNewUser();
 
         ValidatableResponse response = usersAPI.postUser(userData);
+
         String userId = response.assertThat().statusCode(usersAPI.CREATED_CODE).
                 assertThat().body("name", equalTo(userData.get("name"))).
                 assertThat().body("job", equalTo(userData.get("job"))).
                 extract().
                 path("id");
+
         System.out.println(userId);
     }
 }

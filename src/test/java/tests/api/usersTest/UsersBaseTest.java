@@ -14,7 +14,7 @@ public class UsersBaseTest extends BaseTest {
 
     @BeforeClass
     public void SetupBaseURL() {
-        usersAPI = new UsersAPI(this.commonConfig);
+        usersAPI = new UsersAPI(this.commonConfig, this.logger);
         RestAssured.baseURI = envConfig.getMainServiceURL();
     }
 
