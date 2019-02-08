@@ -36,5 +36,8 @@ test {
     useTestNG()
     options {
         systemProperties(System.getProperties())
+        systemProperties['allure.link.issue.pattern'] = 'https://example.org/issue_tracker/{}'
+        systemProperties['allure.link.backlog_tracker.pattern'] = 'https://example.org/backlog_tracker/{}'
     }
 }
+
