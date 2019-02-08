@@ -8,6 +8,8 @@ import io.qameta.allure.Story;
 import java.util.HashMap;
 import static org.hamcrest.Matchers.equalTo;
 
+import customLibs.api.UsersData;
+
 
 @Link(name = "Story 2", value="2", type="backlog_tracker")
 @Story("Story 2 'As a system admin I want to be able create users using REST API'" )
@@ -18,9 +20,7 @@ public class PostUsersTest extends UsersBaseTest {
     @Issue("3")
     @Test(description = "Test root POST users endpoint.")
     public void TestUsersPost() {
-        HashMap<String, String> userData = new HashMap<>();
-        userData.put("name", "Joe");
-        userData.put("job", "QA");
+        HashMap<String, String> userData = UsersData.generateNewUser();
 
         ValidatableResponse response = usersAPI.postUser(userData);
 
