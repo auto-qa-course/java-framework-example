@@ -1,5 +1,6 @@
-package api.usersServiceTest;
+package tests.api.usersServiceTest;
 
+import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
 
 
+@Story("Story 1 'As a system admin I want to be able get users list using REST API'" )
 public class GetUsersTest extends UsersBaseTest {
 
     public GetUsersTest() { super(); }

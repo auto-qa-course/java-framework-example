@@ -1,7 +1,8 @@
-package api;
+package tests.api;
 
 import dataProviders.configurationReaders.EnvironmentConfigReader;
 import dataProviders.configurationReaders.CommonConfigReader;
+
 
 public class BaseTest {
     private String envName = System.getProperty("environment");

@@ -6,6 +6,7 @@ buildscript {
     }
     dependencies {
         classpath "io.qameta.allure:allure-gradle:2.5"
+        
     }
 }
 
@@ -13,18 +14,19 @@ apply plugin: 'java'
 apply plugin: "io.qameta.allure"
 
 allure {
-    version = '2.8.1'
+    version = '2.9.0'
     autoconfigure = true
+    aspectjweaver = true
 
     useTestNG {
-        version = '2.8.1'
+        version = '2.9.0'
     }
     reportDir = file('build/allure-results')
 }
 
 dependencies {
-    compile 'io.rest-assured:rest-assured:3.2.0'
-    
+    testCompile 'io.rest-assured:rest-assured:3.2.0'
+    testCompile 'com.github.javafaker:javafaker:0.17.1'
 }
 
 repositories {
@@ -35,5 +37,8 @@ test {
     useTestNG()
     options {
         systemProperties(System.getProperties())
+        systemProperties['allure.link.issue.pattern'] = 'https://example.org/issue_tracker/{}'
+        systemProperties['allure.link.backlog_tracker.pattern'] = 'https://example.org/backlog_tracker/{}'
     }
 }
+
