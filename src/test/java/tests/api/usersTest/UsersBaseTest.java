@@ -6,10 +6,10 @@ import io.restassured.RestAssured;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import tests.api.BaseTest;
-import customLibs.utils.LogListener;
+import customLibs.utils.RestAssuredLogListener;
 
 
-@Listeners(LogListener.class)
+@Listeners(RestAssuredLogListener.class)
 @Epic("Service Users")
 public class UsersBaseTest extends BaseTest {
 

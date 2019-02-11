@@ -13,7 +13,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 
-public class LogListener implements ITestListener {
+public class RestAssuredLogListener implements ITestListener {
     private ByteArrayOutputStream request = new ByteArrayOutputStream();
     private ByteArrayOutputStream response = new ByteArrayOutputStream();
 
