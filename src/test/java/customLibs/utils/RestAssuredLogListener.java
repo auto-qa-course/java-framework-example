@@ -17,13 +17,15 @@ public class RestAssuredLogListener implements ITestListener {
     private ByteArrayOutputStream request = new ByteArrayOutputStream();
     private ByteArrayOutputStream response = new ByteArrayOutputStream();
 
-    private PrintStream requestVar = new PrintStream(request, true);
-    private PrintStream responseVar = new PrintStream(response, true);
+    private PrintStream requestStream = new PrintStream(request, true);
+    private PrintStream responseStream = new PrintStream(response, true);
 
 
     public void onStart(ITestContext iTestContext) {
-        RestAssured.filters(new ResponseLoggingFilter(LogDetail.ALL, responseVar),
-                new RequestLoggingFilter(LogDetail.ALL, requestVar));
+        RequestLoggingFilter responsesFilter = new RequestLoggingFilter(LogDetail.ALL, requestStream);
+        ResponseLoggingFilter requestsFilter = new ResponseLoggingFilter(LogDetail.ALL,responseStream);
+
+        RestAssured.filters(responsesFilter, requestsFilter);
     }
 
     public void onTestSuccess(ITestResult iTestResult) {
@@ -35,17 +37,13 @@ public class RestAssuredLogListener implements ITestListener {
         onTestSuccess(iTestResult);
     }
 
-    @Attachment(value = "request")
-    public byte[] logRequest(ByteArrayOutputStream stream) {
-        return attach(stream);
-    }
+    @Attachment(value = "all")
+    private byte[] logRequest(ByteArrayOutputStream stream) { return attach(stream); }
 
     @Attachment(value = "response")
-    public byte[] logResponse(ByteArrayOutputStream stream) {
-        return attach(stream);
-    }
+    private byte[] logResponse(ByteArrayOutputStream stream) { return attach(stream); }
 
-    public byte[] attach(ByteArrayOutputStream log) {
+    private byte[] attach(ByteArrayOutputStream log) {
         byte[] array = log.toByteArray();
         log.reset();
         return array;

@@ -26,13 +26,6 @@ public class PostUsersTest extends UsersBaseTest {
         ValidatableResponse response = usersAPI.postUser(userData);
 
         response.assertThat().statusCode(usersAPI.CREATED_CODE);
-
-        userData = UsersData.generateNewUser();
-
-        response = usersAPI.postUser(userData);
-
-        response.assertThat().statusCode(usersAPI.CREATED_CODE);
-
     }
 
     @Test(description = "Test root POST users endpoint & get id.")
