@@ -4,12 +4,9 @@ import customLibs.api.users.UsersAPI;
 import io.qameta.allure.Epic;
 import io.restassured.RestAssured;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Listeners;
 import tests.api.BaseTest;
-import customLibs.utils.RestAssuredLogListener;
 
 
-@Listeners(RestAssuredLogListener.class)
 @Epic("Service Users")
 public class UsersBaseTest extends BaseTest {
 

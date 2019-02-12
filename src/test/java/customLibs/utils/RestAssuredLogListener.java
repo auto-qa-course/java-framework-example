@@ -14,34 +14,24 @@ import java.io.PrintStream;
 
 
 public class RestAssuredLogListener implements ITestListener {
-    private ByteArrayOutputStream request = new ByteArrayOutputStream();
-    private ByteArrayOutputStream response = new ByteArrayOutputStream();
-
-    private PrintStream requestStream = new PrintStream(request, true);
-    private PrintStream responseStream = new PrintStream(response, true);
-
+    private ByteArrayOutputStream restAssuredLogs = new ByteArrayOutputStream();
+    private PrintStream requestStream = new PrintStream(restAssuredLogs, true);
+    private PrintStream responseStream = new PrintStream(restAssuredLogs, true);
 
     public void onStart(ITestContext iTestContext) {
         RequestLoggingFilter responsesFilter = new RequestLoggingFilter(LogDetail.ALL, requestStream);
-        ResponseLoggingFilter requestsFilter = new ResponseLoggingFilter(LogDetail.ALL,responseStream);
-
+        ResponseLoggingFilter requestsFilter = new ResponseLoggingFilter(LogDetail.ALL, responseStream);
         RestAssured.filters(responsesFilter, requestsFilter);
     }
 
-    public void onTestSuccess(ITestResult iTestResult) {
-        logRequest(request);
-        logResponse(response);
-    }
+    public void onTestSuccess(ITestResult iTestResult) { logRequest(restAssuredLogs); }
 
     public void onTestFailure(ITestResult iTestResult) {
         onTestSuccess(iTestResult);
     }
 
-    @Attachment(value = "all")
+    @Attachment(value = "restAssuredLogs")
     private byte[] logRequest(ByteArrayOutputStream stream) { return attach(stream); }
-
-    @Attachment(value = "response")
-    private byte[] logResponse(ByteArrayOutputStream stream) { return attach(stream); }
 
     private byte[] attach(ByteArrayOutputStream log) {
         byte[] array = log.toByteArray();
