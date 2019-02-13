@@ -1,4 +1,4 @@
-package customLibs.utils;
+package commonLibs.utils;
 
 public class SimpleLogger  {
     private String logLevel = "DEBUG";

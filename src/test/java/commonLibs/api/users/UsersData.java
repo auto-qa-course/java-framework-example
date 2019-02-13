@@ -1,4 +1,4 @@
-package customLibs.api.users;
+package commonLibs.api.users;
 
 import com.github.javafaker.Faker;
 

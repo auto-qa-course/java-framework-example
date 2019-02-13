@@ -1,4 +1,4 @@
-package customLibs.configurationReaders;
+package commonLibs.configurationReaders;
 
 public class CommonConfigReader extends ConfigReader {
 

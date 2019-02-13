@@ -1,4 +1,4 @@
-package customLibs.utils;
+package commonLibs.utils;
 import io.qameta.allure.Link;
 import io.qameta.allure.Story;
 

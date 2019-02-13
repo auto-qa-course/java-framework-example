@@ -1,6 +1,6 @@
 package tests.api.usersTest;
 
-import customLibs.api.users.UsersAPI;
+import commonLibs.api.users.UsersAPI;
 import io.qameta.allure.Epic;
 import io.restassured.RestAssured;
 import org.testng.annotations.BeforeClass;

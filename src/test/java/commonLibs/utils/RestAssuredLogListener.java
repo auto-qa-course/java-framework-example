@@ -1,4 +1,4 @@
-package customLibs.utils;
+package commonLibs.utils;
 
 import io.qameta.allure.Attachment;
 import io.restassured.RestAssured;

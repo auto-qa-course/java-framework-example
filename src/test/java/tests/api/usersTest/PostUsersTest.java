@@ -1,6 +1,6 @@
 package tests.api.usersTest;
 
-import customLibs.api.users.UsersData;
+import commonLibs.api.users.UsersData;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Link;
 import io.qameta.allure.Story;

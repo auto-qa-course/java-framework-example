@@ -1,8 +1,8 @@
-package customLibs.api.users;
+package commonLibs.api.users;
 
-import customLibs.api.BaseAPI;
-import customLibs.configurationReaders.CommonConfigReader;
-import customLibs.utils.SimpleLogger;
+import commonLibs.api.BaseAPI;
+import commonLibs.configurationReaders.CommonConfigReader;
+import commonLibs.utils.SimpleLogger;
 import io.restassured.response.ValidatableResponse;
 import io.qameta.allure.Step;
 import java.util.HashMap;

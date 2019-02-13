@@ -1,4 +1,4 @@
-package customLibs.configurationReaders;
+package commonLibs.configurationReaders;
 
 import java.io.FileInputStream;
 import java.io.IOException;

@@ -1,7 +1,7 @@
-package customLibs.api;
-import customLibs.configurationReaders.CommonConfigReader;
-import customLibs.utils.AllureStepLogger;
-import customLibs.utils.SimpleLogger;
+package commonLibs.api;
+import commonLibs.configurationReaders.CommonConfigReader;
+import commonLibs.utils.AllureStepLogger;
+import commonLibs.utils.SimpleLogger;
 import io.restassured.response.ValidatableResponse;
 import java.util.HashMap;
 import static io.restassured.RestAssured.given;

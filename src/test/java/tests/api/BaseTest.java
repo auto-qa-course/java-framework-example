@@ -1,9 +1,9 @@
 package tests.api;
 
-import customLibs.configurationReaders.EnvironmentConfigReader;
-import customLibs.configurationReaders.CommonConfigReader;
-import customLibs.utils.RestAssuredLogListener;
-import customLibs.utils.SimpleLogger;
+import commonLibs.configurationReaders.EnvironmentConfigReader;
+import commonLibs.configurationReaders.CommonConfigReader;
+import commonLibs.utils.RestAssuredLogListener;
+import commonLibs.utils.SimpleLogger;
 import org.testng.annotations.Listeners;
 
 
