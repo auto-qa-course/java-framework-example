@@ -1,15 +1,11 @@
 package tests.api.usersTest;
 
 import commonLibs.api.users.UsersData;
-import io.qameta.allure.Issue;
 import io.qameta.allure.Link;
 import io.qameta.allure.Story;
 import io.restassured.response.ValidatableResponse;
 import org.testng.annotations.Test;
-
 import java.util.HashMap;
-
-import static org.hamcrest.Matchers.equalTo;
 
 
 @Link(name = "Story 2", value="2", type="backlog_tracker")
@@ -29,24 +25,21 @@ public class PostUsersTest extends UsersBaseTest {
     public void TestUsersPostGetByID() {
         HashMap<String, String> userData = UsersData.generateNewUser();
 
-        ValidatableResponse response = usersAPI.postUser(userData);
+        ValidatableResponse postUserResponse = usersAPI.postUser(userData);
 
-        String userId = response.extract().path("id");
+        String userId = usersAPI.parseIdFromResponse(postUserResponse);
 
-        usersAPI.getUserById(userId).
-                assertThat().body("name", equalTo(userData.get("name"))).
-                assertThat().body("job", equalTo(userData.get("job")));;
+        ValidatableResponse getUserResponse = usersAPI.getUserById(userId);
+
+        usersAPI.assertUserBody(getUserResponse, userData);
     }
 
-    @Test(description = "Test root POST users endpoint & get id.")
+    @Test(description = "Test root POST users endpoint & verify body.")
     public void TestUsersPostVerifyBody() {
-
         HashMap<String, String> userData = UsersData.generateNewUser();
 
         ValidatableResponse response = usersAPI.postUser(userData);
 
-        response.assertThat().statusCode(usersAPI.CREATED_CODE).
-                assertThat().body("name", equalTo(userData.get("name"))).
-                assertThat().body("job", equalTo(userData.get("job")));
+        usersAPI.assertUserBody(response, userData);
     }
 }

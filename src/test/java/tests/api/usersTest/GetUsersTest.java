@@ -3,9 +3,7 @@ package tests.api.usersTest;
 import io.qameta.allure.Story;
 import io.restassured.response.ValidatableResponse;
 import org.testng.annotations.Test;
-
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.empty;
 
 
 @Story("Story 1 'As a system admin I want to be able get users list using REST API'" )
@@ -26,9 +24,7 @@ public class GetUsersTest extends UsersBaseTest {
 
         ValidatableResponse response = usersAPI.getUsersByPage(pageNumber);
 
-        response.
-                assertThat().statusCode(usersAPI.SUCCESS_CODE).
-                assertThat().body("page", equalTo(pageNumber));
+        response.assertThat().body("page", equalTo(pageNumber));
     }
 
     @Test(description = "Test GET Users pagination - page size parameter.")
@@ -62,9 +58,7 @@ public class GetUsersTest extends UsersBaseTest {
 
         ValidatableResponse responseForEmptyPage = usersAPI.getUsersByPage(pageNumber);
 
-        responseForEmptyPage.
-                assertThat().statusCode(usersAPI.SUCCESS_CODE).
-                assertThat().body("data", empty());
+        usersAPI.assertEmptyBody(responseForEmptyPage);
     }
 }
 

@@ -8,6 +8,8 @@ import io.qameta.allure.Step;
 import java.util.HashMap;
 
 import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.equalTo;
+
 
 public class UsersAPI extends BaseAPI {
     private String path;
@@ -45,10 +47,10 @@ public class UsersAPI extends BaseAPI {
         return this.sendGet(this.path, this.requestHeaders).assertThat().statusCode(this.SUCCESS_CODE);
     }
 
-
     @Step("GET users list by page")
     public ValidatableResponse getUsersByPage(int pageNumber) {
-        return this.sendGet(this.getUsersByPagePath(pageNumber), this.requestHeaders);
+        return this.sendGet(this.getUsersByPagePath(pageNumber), this.requestHeaders).
+                assertThat().statusCode(this.SUCCESS_CODE);
     }
 
     @Step("GET users list by size")
@@ -63,29 +65,35 @@ public class UsersAPI extends BaseAPI {
 
     @Step("Parse total pages from response")
     public int parseTotalPagesFromResponse(ValidatableResponse response){
-        return response.
-                assertThat().statusCode(this.SUCCESS_CODE).
-                extract().
-                path("total_pages");
+        return response.extract().path("total_pages");
     }
 
-    public String getUsersByPagePath(Integer pageNumber) {
+    @Step("Parse ID from response")
+    public String parseIdFromResponse(ValidatableResponse response){
+        return response.extract().path("id");
+    }
+
+    private String getUsersByPagePath(Integer pageNumber) {
         return String.format("%s?page=%s", this.path, pageNumber);
     }
 
-    public String getUsersByPagePerPageSizePath(Integer pageNumber,Integer pageSize) {
+    private String getUsersByPagePerPageSizePath(Integer pageNumber,Integer pageSize) {
         return String.format("%s?page=%s&per_page=%s", this.path, pageNumber, pageSize);
     }
 
-    public String getUsersBySizePath(Integer pageSize) {
+    private String getUsersBySizePath(Integer pageSize) {
         return String.format("%s?size=%s", this.path, pageSize);
     }
 
+    @Step("Assert name and job in response body")
+    public void assertUserBody(ValidatableResponse response, HashMap<String, String> expectedUserBody) {
+         response.
+                 assertThat().body("name", equalTo(expectedUserBody.get("name"))).
+                 assertThat().body("job", equalTo(expectedUserBody.get("job")));
+    }
 
-    public ValidatableResponse checkBody(ValidatableResponse response) {
-        return response.
-                assertThat().statusCode(this.SUCCESS_CODE).
-                assertThat().body("data", empty());
+    public void assertEmptyBody(ValidatableResponse response) {
+         response.assertThat().body("data", empty());
     }
 
 }
