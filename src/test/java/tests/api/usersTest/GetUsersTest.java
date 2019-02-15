@@ -1,6 +1,7 @@
 package tests.api.usersTest;
 
 import io.qameta.allure.Story;
+import io.restassured.response.ValidatableResponse;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -16,68 +17,62 @@ public class GetUsersTest extends UsersBaseTest {
 
     @Test(description = "Test root GET users endpoint.")
     public void TestUsersGet() {
-        when().
-                get(usersAPI.path).
-        then().
-                assertThat().statusCode(200);
+        ValidatableResponse response = usersAPI.getUsers();
+
+        response.assertThat().statusCode(usersAPI.SUCCESS_CODE);
     }
 
     @Test(description = "Test GET Users pagination - page number parameter.")
     public void TestUsersGetPaginationByPageNumber() {
         int pageNumber = 1;
-        when().
-                get(usersAPI.getUsersByPagePath(pageNumber)).
-        then().
-                assertThat().statusCode(200).
+
+        ValidatableResponse response = usersAPI.getUsersByPage(pageNumber);
+
+        response.
+                assertThat().statusCode(usersAPI.SUCCESS_CODE).
                 assertThat().body("page", equalTo(pageNumber));
     }
 
     @Test(description = "Test GET Users pagination - page size parameter.")
     public void TestUsersGetPaginationPerPageSize() {
         int pageSize = 10;
-        ArrayList<String> response =
-                when().
-                get(usersAPI.getUsersBySizePath(pageSize)).
-        then().
-                assertThat().statusCode(200).
-        extract().
-                  path("data");
-        System.out.println(response);
+
+        ValidatableResponse response = usersAPI.getUsersBySize(pageSize);
+
+        response.assertThat().statusCode(usersAPI.SUCCESS_CODE);
     }
 
     @Test(description = "Test GET Users pagination - page number & size parameter.")
     public void TestUsersGetPaginationPerPageSizeAndPageNumber() {
         int pageNumber = 2;
         int pageSize = 10;
-        ArrayList<String> response =
-                when().
-                        get(usersAPI.getUsersByPagePerPageSizePath(pageNumber, pageSize)).
-                        then().
-                        assertThat().statusCode(200).
-                        extract().
-                        path("data");
-        System.out.println(response);
+
+        ValidatableResponse response = usersAPI.getUsersByPagePerPageSize(pageNumber, pageSize);
+
+        response.assertThat().statusCode(usersAPI.SUCCESS_CODE);
     }
 
-    @Test(description = "Test GET Users pagination - empty page.")
+    @Test(description = "Test Users pagination - GET not existing page.")
     public void TestUsersGetPaginationPageEmpty() {
         int pageNumber = 1;
-        int pagesNumber =
-        when().
-                get(usersAPI.getUsersByPagePath(pageNumber)).
-                then().
-                assertThat().statusCode(200).
+
+        ValidatableResponse response = usersAPI.getUsersByPage(pageNumber);
+
+        int totalPagesNumber =
+                response.
+                assertThat().statusCode(usersAPI.SUCCESS_CODE).
                 extract().
                 path("total_pages");
-        System.out.println(pagesNumber);
+        System.out.println(totalPagesNumber);
 
-        pageNumber = pagesNumber + 1;
+        pageNumber = totalPagesNumber + 1;
         ArrayList data_content = new ArrayList<>();
-        when().
-                get(usersAPI.getUsersByPagePath(pageNumber)).
-                then().
-                assertThat().statusCode(200).
-                assertThat().body("total_pages", equalTo(pagesNumber)).
+
+        ValidatableResponse responseForEmptyPage = usersAPI.getUsersByPage(pageNumber);
+
+        responseForEmptyPage.
+                assertThat().statusCode(usersAPI.SUCCESS_CODE).
+                assertThat().body("total_pages", equalTo(totalPagesNumber)).
                 assertThat().body("data", equalTo(data_content));
     }
 }

@@ -8,19 +8,44 @@ import io.qameta.allure.Step;
 import java.util.HashMap;
 
 public class UsersAPI extends BaseAPI {
-    public String path;
+    private String path;
+    private HashMap<String, String> requestHeaders;
 
     public UsersAPI(CommonConfigReader commonConfig, SimpleLogger logger) {
         super(commonConfig, logger);
         this.path = commonConfig.getUsersPath();
+        this.requestHeaders = this.setDefaultHeaders();
+    }
+
+    private HashMap<String, String> setDefaultHeaders(){
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("content-type", "application/json");
+        return headers;
     }
 
     @Step("POST user")
     public ValidatableResponse postUser(HashMap userBody) {
-        HashMap<String, String> requestHeaders = new HashMap<>();
-        requestHeaders.put("content-type", "application/json");
+        return this.sendPost(this.path, this.requestHeaders, userBody);
+    }
 
-        return this.sendPost(this.path, requestHeaders, userBody);
+    @Step("GET users list")
+    public ValidatableResponse getUsers() {
+        return this.sendGet(this.path, this.requestHeaders);
+    }
+
+    @Step("GET users list by page")
+    public ValidatableResponse getUsersByPage(int pageNumber) {
+        return this.sendGet(this.getUsersByPagePath(pageNumber), this.requestHeaders);
+    }
+
+    @Step("GET users list by size")
+    public ValidatableResponse getUsersBySize(int pageSize) {
+        return this.sendGet(this.getUsersByPagePath(pageSize), this.requestHeaders);
+    }
+
+    @Step("GET users list by page & size")
+    public ValidatableResponse getUsersByPagePerPageSize(int pageNumber, int pageSize) {
+        return this.sendGet(this.getUsersByPagePerPageSizePath(pageNumber, pageSize), this.requestHeaders);
     }
 
     public String getUsersByPagePath(Integer pageNumber) {

@@ -35,12 +35,23 @@ public class PostUsersTest extends UsersBaseTest {
 
         ValidatableResponse response = usersAPI.postUser(userData);
 
-        String userId = response.assertThat().statusCode(usersAPI.CREATED_CODE).
-                assertThat().body("name", equalTo(userData.get("name"))).
-                assertThat().body("job", equalTo(userData.get("job"))).
+        String userId = response.
+                assertThat().statusCode(usersAPI.CREATED_CODE).
                 extract().
                 path("id");
 
         System.out.println(userId);
+    }
+
+    @Test(description = "Test root POST users endpoint & get id.")
+    public void TestUsersPostVerifyBody() {
+
+        HashMap<String, String> userData = UsersData.generateNewUser();
+
+        ValidatableResponse response = usersAPI.postUser(userData);
+
+        response.assertThat().statusCode(usersAPI.CREATED_CODE).
+                assertThat().body("name", equalTo(userData.get("name"))).
+                assertThat().body("job", equalTo(userData.get("job")));
     }
 }
