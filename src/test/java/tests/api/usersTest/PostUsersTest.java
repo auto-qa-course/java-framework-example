@@ -1,6 +1,5 @@
 package tests.api.usersTest;
 
-import commonLibs.api.users.UsersData;
 import io.qameta.allure.Link;
 import io.qameta.allure.Story;
 import io.restassured.response.ValidatableResponse;
@@ -14,9 +13,9 @@ public class PostUsersTest extends UsersBaseTest {
 
     public PostUsersTest() { super(); }
 
-    @Test(description = "Test root POST users endpoint with empty body.")
-    public void TestUsersPostEmptyBody() {
-        ValidatableResponse response = usersAPI.postUserNoResponseCodeValidation(UsersData.generateEmptyUser());
+    @Test(description = "Test root POST users endpoint with empty body.", dataProvider = "emptyUser")
+    public void TestUsersPostEmptyBody(HashMap<String, String> userData) {
+        ValidatableResponse response = usersAPI.postUserNoResponseCodeValidation(userData);
 
         response.assertThat().statusCode(usersAPI.BAD_REQUEST_CODE);
     }
