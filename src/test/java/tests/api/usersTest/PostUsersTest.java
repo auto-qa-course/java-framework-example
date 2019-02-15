@@ -18,29 +18,24 @@ public class PostUsersTest extends UsersBaseTest {
 
     public PostUsersTest() { super(); }
 
-    @Issue("3")
-    @Test(description = "Test root POST users endpoint.")
-    public void TestUsersPost() {
-        HashMap<String, String> userData = UsersData.generateNewUser();
+    @Test(description = "Test root POST users endpoint with empty body.")
+    public void TestUsersPostEmptyBody() {
+        ValidatableResponse response = usersAPI.postUserNoResponseCodeValidation(UsersData.generateEmptyUser());
 
-        ValidatableResponse response = usersAPI.postUser(userData);
-
-        response.assertThat().statusCode(usersAPI.CREATED_CODE);
+        response.assertThat().statusCode(usersAPI.BAD_REQUEST_CODE);
     }
 
-    @Test(description = "Test root POST users endpoint & get id.")
-    public void TestUsersPostGetID() {
-
+    @Test(description = "Test root POST users & GET by id.")
+    public void TestUsersPostGetByID() {
         HashMap<String, String> userData = UsersData.generateNewUser();
 
         ValidatableResponse response = usersAPI.postUser(userData);
 
-        String userId = response.
-                assertThat().statusCode(usersAPI.CREATED_CODE).
-                extract().
-                path("id");
+        String userId = response.extract().path("id");
 
-        System.out.println(userId);
+        usersAPI.getUserById(userId).
+                assertThat().body("name", equalTo(userData.get("name"))).
+                assertThat().body("job", equalTo(userData.get("job")));;
     }
 
     @Test(description = "Test root POST users endpoint & get id.")

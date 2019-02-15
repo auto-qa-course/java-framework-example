@@ -9,6 +9,7 @@ import static io.restassured.RestAssured.given;
 public class BaseAPI {
     public final Integer CREATED_CODE = 201;
     public final Integer SUCCESS_CODE = 200;
+    public final Integer BAD_REQUEST_CODE = 201;
     private SimpleLogger logger;
 
     public BaseAPI(CommonConfigReader commonConfig, SimpleLogger logger) {

@@ -7,6 +7,8 @@ import io.restassured.response.ValidatableResponse;
 import io.qameta.allure.Step;
 import java.util.HashMap;
 
+import static org.hamcrest.Matchers.empty;
+
 public class UsersAPI extends BaseAPI {
     private String path;
     private HashMap<String, String> requestHeaders;
@@ -23,8 +25,13 @@ public class UsersAPI extends BaseAPI {
         return headers;
     }
 
-    @Step("POST user")
+    @Step("POST user and check response code")
     public ValidatableResponse postUser(HashMap userBody) {
+        return this.postUserNoResponseCodeValidation(userBody).assertThat().statusCode(this.CREATED_CODE);
+    }
+
+    @Step("POST user")
+    public ValidatableResponse postUserNoResponseCodeValidation(HashMap userBody) {
         return this.sendPost(this.path, this.requestHeaders, userBody);
     }
 
@@ -32,6 +39,12 @@ public class UsersAPI extends BaseAPI {
     public ValidatableResponse getUsers() {
         return this.sendGet(this.path, this.requestHeaders);
     }
+
+    @Step("GET users list")
+    public ValidatableResponse getUserById(String userId) {
+        return this.sendGet(this.path, this.requestHeaders).assertThat().statusCode(this.SUCCESS_CODE);
+    }
+
 
     @Step("GET users list by page")
     public ValidatableResponse getUsersByPage(int pageNumber) {
@@ -68,6 +81,12 @@ public class UsersAPI extends BaseAPI {
         return String.format("%s?size=%s", this.path, pageSize);
     }
 
+
+    public ValidatableResponse checkBody(ValidatableResponse response) {
+        return response.
+                assertThat().statusCode(this.SUCCESS_CODE).
+                assertThat().body("data", empty());
+    }
 
 }
 

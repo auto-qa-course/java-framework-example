@@ -15,6 +15,10 @@ public class UsersData {
         user.put("job", faker.job().title());
         return user;
     }
+
+    public static HashMap<String, String> generateEmptyUser() {
+        return new HashMap<>();
+    }
 }
 
 
