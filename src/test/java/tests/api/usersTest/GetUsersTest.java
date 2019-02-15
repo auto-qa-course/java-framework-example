@@ -4,10 +4,8 @@ import io.qameta.allure.Story;
 import io.restassured.response.ValidatableResponse;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-
-import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.empty;
 
 
 @Story("Story 1 'As a system admin I want to be able get users list using REST API'" )
@@ -58,21 +56,15 @@ public class GetUsersTest extends UsersBaseTest {
 
         ValidatableResponse response = usersAPI.getUsersByPage(pageNumber);
 
-        int totalPagesNumber =
-                response.
-                assertThat().statusCode(usersAPI.SUCCESS_CODE).
-                extract().
-                path("total_pages");
-        System.out.println(totalPagesNumber);
+        int totalPagesNumber = usersAPI.parseTotalPagesFromResponse(response);
 
         pageNumber = totalPagesNumber + 1;
-        ArrayList data_content = new ArrayList<>();
 
         ValidatableResponse responseForEmptyPage = usersAPI.getUsersByPage(pageNumber);
 
         responseForEmptyPage.
                 assertThat().statusCode(usersAPI.SUCCESS_CODE).
-                assertThat().body("total_pages", equalTo(totalPagesNumber)).
-                assertThat().body("data", equalTo(data_content));
+                assertThat().body("data", empty());
     }
 }
+

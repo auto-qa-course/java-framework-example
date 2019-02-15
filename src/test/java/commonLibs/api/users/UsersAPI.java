@@ -40,12 +40,20 @@ public class UsersAPI extends BaseAPI {
 
     @Step("GET users list by size")
     public ValidatableResponse getUsersBySize(int pageSize) {
-        return this.sendGet(this.getUsersByPagePath(pageSize), this.requestHeaders);
+        return this.sendGet(this.getUsersBySizePath(pageSize), this.requestHeaders);
     }
 
     @Step("GET users list by page & size")
     public ValidatableResponse getUsersByPagePerPageSize(int pageNumber, int pageSize) {
         return this.sendGet(this.getUsersByPagePerPageSizePath(pageNumber, pageSize), this.requestHeaders);
+    }
+
+    @Step("Parse total pages from response")
+    public int parseTotalPagesFromResponse(ValidatableResponse response){
+        return response.
+                assertThat().statusCode(this.SUCCESS_CODE).
+                extract().
+                path("total_pages");
     }
 
     public String getUsersByPagePath(Integer pageNumber) {
@@ -59,6 +67,8 @@ public class UsersAPI extends BaseAPI {
     public String getUsersBySizePath(Integer pageSize) {
         return String.format("%s?size=%s", this.path, pageSize);
     }
+
+
 }
 
 
