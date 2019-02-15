@@ -9,4 +9,8 @@ public class CommonConfigReader extends ConfigReader {
     public String getUsersPath(){
         return this.getProperty("usersPath");
     }
+
+    public String getTestDataNamingPattern(){
+        return this.getProperty("testDataNamingPattern");
+    }
 }

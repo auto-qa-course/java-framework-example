@@ -23,7 +23,7 @@ public class PostUsersTest extends UsersBaseTest {
 
     @Test(description = "Test root POST users & GET by id.")
     public void TestUsersPostGetByID() {
-        HashMap<String, String> userData = UsersData.generateNewUser();
+        HashMap<String, String> userData = usersData.generateNewUser();
 
         ValidatableResponse postUserResponse = usersAPI.postUser(userData);
 
@@ -36,7 +36,7 @@ public class PostUsersTest extends UsersBaseTest {
 
     @Test(description = "Test root POST users endpoint & verify body.")
     public void TestUsersPostVerifyBody() {
-        HashMap<String, String> userData = UsersData.generateNewUser();
+        HashMap<String, String> userData = usersData.generateNewUser();
 
         ValidatableResponse response = usersAPI.postUser(userData);
 
