@@ -21,9 +21,8 @@ public class UsersData {
         return user;
     }
 
-    @DataProvider(name = "emptyUser")
-    public static Object[][] generateEmptyUser() {
-        return new Object[][] { { new HashMap<>() }};
+    public static HashMap<String, String> generateEmptyUser() {
+        return new HashMap<>();
     }
 }
 
